@@ -1,0 +1,41 @@
+{
+  "title": "An advanced service car club that operates according to European standards",
+  "about": "The club offers back-to-back areas of basic services that will benefit them in everything related to their vehicles, starting with a four-wheel drive",
+  "services": [
+    {
+      "name": "Travel Insurance ",
+      "header": "Providing Travel assistance all over the world except the residence country through Euro Assist Network.",
+      "notes": "",
+      "img": "ta2meen-sfr.png",
+      "serviceList": []
+    },
+    {
+      "name": "Treatment Abroad",
+      "header": "Providing Medical assistance all over the world through Euro Assist Network.",
+      "notes": "",
+      "img": "trteeb-3lag.png",
+      "serviceList": []
+    },
+    {
+      "name": "Air Ambulance",
+      "header": "Arrange for air and/or surface transportation and communication for moving the client when in a critical medical condition to the nearest hospital where appropriate medical care is available. Pay for the medically necessary expenses for such summons: transportation and communication and all usually and customary ancillary charge incurred in these services.",
+      "notes": "",
+      "serviceList": [],
+      "img": "ic_Air_Ambulance.svg"
+    },
+    {
+      "name": "Emergency Evacuation",
+      "header": "Arrange the evacuation, using the means it deems suitable, based on the medical evaluation of the seriousness of the client's condition. These means may include air ambulance, surface Ambulance, regular airplane, railroad or other appropriate means.",
+      "notes": "",
+      "img": "emergencyMedicalEvacuation.png",
+      "serviceList": []
+    },
+    {
+      "name": "Repatriation of mortal remains",
+      "header": "In the event of the death of the client make the necessary arrangements for the return of the client's remains to his/her country of citizenship and Euro Assist will meet the cost of the transfer expenses to the place of interment, or funeral ceremony at his/her usual country of residence.",
+      "notes": "",
+      "img": "ic_technical-support.svg",
+      "serviceList": []
+    }
+  ]
+}

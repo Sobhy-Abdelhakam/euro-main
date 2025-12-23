@@ -1,0 +1,148 @@
+{
+  "title": "An advanced car service club that operates according to European standards",
+  "about": "The club provides its members with many real services that benefit them in everything related to their cars, begin from thinking about buying or getting a car loan and insurance on it, as well as the rescue and assistance program that protects them from the dangers and problems that can be faced on roads",
+  "services_corporates": [
+    {
+      "name": "Replacement car with driver",
+      "header": "In case of road traffic accident, causing immobilization to the client’s vehicle which requires remaining in the repair shop for a period in excess of 5 working days for its repair according to certified report in written form by your company ",
+      "notes": "",
+      "serviceList": [],
+      "img": "ic_driver.svg"
+    },
+    {
+      "name": "Transport of Passengers",
+      "header": "In case of road traffic accident or breakdown, causing immobilization to the client’s vehicle, the company will take in charge transporting the passengers (up to 4 persons) to the destination chosen by the client",
+      "notes": "",
+      "serviceList": [],
+      "img": "ic_bus.svg"
+    },
+    {
+      "name": "Accommodation in hotel",
+      "header": "In case of road traffic accident (in a city far more than 300 KM from the client’s home city), and that causing immobilization to the client’s vehicle which requires remaining in the repair shop for a period in excess of 72 hours (excluding weekends and vacations) for its repair according to certified report in written form by your company",
+      "notes": "The alternative car service can not be used in the event of utilization of this service (in the same incident)",
+      "serviceList": [],
+      "img": "ic_Hotel.svg"
+    },
+    {
+      "name": "License renewing",
+      "header": "The company can renew the license of the vehicle on behalf of the client without any additional expenses or perquisite, with the commitment of the customer to pay all expenses (receipts) with the value of irregularities. Paperwork is received and the delivery of the renewed license or place the client (work or home)",
+      "notes": "Paperwork is received and the delivery of the renewed license or place the client (work or home) and customer should call for registeration before the renewal date with 3 days",
+      "serviceList": [],
+      "img": "ic_driver-license.svg"
+    },
+    {
+      "name": "Door To Door Service",
+      "header": "When the client needs to make the regular services for his vehicle (up to 3 times a year), the company provides a professional driver receive the client’s car from his home or his office, to do the regular service on behalf of the client. In the authorized service centers",
+      "notes": "service is provided for only once per year",
+      "serviceList": [],
+      "img": "ic_door-to-door.svg"
+    },
+    {
+      "name": "Emergency medical cover",
+      "header": "In case of road traffic accident which causes injuring one or more of the passengers, the company will pay the cost of the emergency medical treatment for the injured persons up to 3,500 EGP per accident with maximum of 5,000 EGP per year.",
+      "notes": "",
+      "serviceList": [],
+      "img": "ic_first-aid-kit.svg"
+    }
+  ],
+  "services_individuals": [
+    {
+      "name": "Car Breakdown",
+      "header": "If the car is unable to move due to a breakdown, it will be moved to any place the client requires according to the type of the contracted program.",
+      "details": "If the car is unable to move due to a breakdown, it will be moved to any place the client requires according to the type of the contracted program.",
+      "img": "relay_urgent_messages.png"
+    },
+    {
+      "name": "Car Accident",
+      "header": "In case the car is unable to move due to an accident, it will be moved to any place the client requires according to the type of the contracted program.",
+      "details": "In case the car is unable to move due to an accident, it will be moved to any place the client requires according to the type of the contracted program. ",
+      "img": "towing_breakdown_vehicle.png"
+    },
+    {
+      "name": "Car Re-routing",
+      "header": " In case of car deviation to a side road or a sub-route, it will be returned back to the ordinary road",
+      "details": " In case of car deviation to a side road or a sub-route, it will be returned back to the ordinary road",
+      "img": "return_to_ordinary_road.png"
+    },
+    {
+      "name": "Fuel delivery",
+      "header": "In case the client’s car ran out of fuel, the client can benefit from the service of ordering a quantity of fuel that enables him to reach the nearest fuel station (according to the maximum quantity that could be delivered safely to him) and the client only pays the fuel cost. Authorities Terms and conditions applies.",
+      "details": "In case the client’s car ran out of fuel, the client can benefit from the service of ordering a quantity of fuel that enables him to reach the nearest fuel station (according to the maximum quantity that could be delivered safely to him) and the client only pays the fuel cost. Authorities Terms and conditions applies.",
+      "img": "fuel_delivery.png"
+    },
+    {
+      "name": "Battery charging",
+      "header": "In case the car cannot move due to discharged battery, Euro Assist shall send its technician to recharge the battery temporarily to be able to move the car at that time, or by using car cable jumping.",
+      "details": "In case the car cannot move due to discharged battery, Euro Assist shall send its technician to recharge the battery temporarily to be able to move the car at that time, or by using car cable jumping.",
+      "img": "battery_charging.png"
+    },
+    {
+      "name": "Tire replacement",
+      "header": "In case of tire puncture or flat tire, Euro Assist shall send a technician to assist in replacing it with the spare tire (in case of availability of a functioning spare tire). This program coverage does not include supplying spare parts or replacement parts or any type of materials, in addition, this coverage does not include tire puncture repair or welding costs.",
+      "details": "In case of tire puncture or flat tire, Euro Assist shall send a technician to assist in replacing it with the spare tire (in case of availability of a functioning spare tire). This program coverage does not include supplying spare parts or replacement parts or any type of materials, in addition, this coverage does not include tire puncture repair or welding costs. ",
+      "img": "tire_replacement.png"
+    },
+    {
+      "name": "Supply of information",
+      "header": "In case client requires any information about hospitals, service centers, ambulance and anything related to the accident or the breakdown according to the program coverage (via website,  mail or WhatsApp).",
+      "details": "In case client requires any information about hospitals, service centers, ambulance and anything related to the accident or the breakdown according to the program coverage (via website,  mail or WhatsApp).",
+      "img": "supply_information.png"
+    },
+    {
+      "name": "Ambulance arrangements",
+      "header": "Request and follow up the ambulance to the insured passengers and verify the quality of the medical services.",
+      "details": "Request and follow up the ambulance to the insured passengers and verify the quality of the medical services.",
+      "img": "ambulance_arrangements.png"
+    },
+    {
+      "name": "Corporate services",
+      "header": "Corporate services",
+      "details": "Corporate services",
+      "img": "Services_Corporates.png",
+      "serviceList": [
+        {
+          "name": "Replacement car with driver",
+          "header": "In case of road traffic accident, causing immobilization to the client’s vehicle which requires remaining in the maintenance center for a period that exceeds 5 working days for its repair according to certified report in written form by the insurance company.",
+          "notes": "",
+          "serviceList": [],
+          "img": "ic_driver.svg"
+        },
+        {
+          "name": "Transport of Passengers",
+          "header": "In case of road traffic accident or breakdown, causing immobilization to the client’s vehicle, Euro Assist will take in charge transporting the passengers (up to 4 persons) to the destination chosen by the client.",
+          "notes": "",
+          "serviceList": [],
+          "img": "ic_bus.svg"
+        },
+        {
+          "name": "Hotel Accommodation",
+          "header": "In case of road traffic accident (in a city far more than 300 KM from the client’s home city), and that causing immobilization to the client’s vehicle which requires remaining in the maintenance center for a period that exceeds 72 hours (excluding weekends and vacations) for its repair according to certified report in written form by the insurance company.",
+          "notes": "In case of road traffic accident (in a city far more than 300 KM from the client’s home city), and that causing immobilization to the client’s vehicle which requires remaining in the maintenance center for a period that exceeds 72 hours (excluding weekends and vacations) for its repair according to certified report in written form by the insurance company.",
+          "serviceList": [],
+          "img": "ic_Hotel.svg"
+        },
+        {
+          "name": "License renewing",
+          "header": "The company can renew the license of the vehicle on behalf of the client without any additional expenses or perquisites, with the commitment of the client to pay all expenses (receipts) with the value of irregularities. Paperwork is received and the delivery of the renewed license to the client’s work place or home.",
+          "notes": "The company can renew the license of the vehicle on behalf of the client without any additional expenses or perquisites, with the commitment of the client to pay all expenses (receipts) with the value of irregularities. Paperwork is received and the delivery of the renewed license to the client’s work place or home.",
+          "serviceList": [],
+          "img": "ic_driver-license.svg"
+        },
+        {
+          "name": "Door To Door Service",
+          "header": "When the client needs to make the regular services for his vehicle (up to 3 times a year), Euro Assist provides a professional driver to receive the client’s car from his home or his office, to do the regular service on behalf of the client. In the authorized service centers.",
+          "notes": "When the client needs to make the regular services for his vehicle (up to 3 times a year), Euro Assist provides a professional driver to receive the client’s car from his home or his office, to do the regular service on behalf of the client. In the authorized service centers.",
+          "serviceList": [],
+          "img": "ic_door-to-door.svg"
+        },
+        {
+          "name": "Emergency medical cover",
+          "header": "In case of road traffic accident which causes injury of one or more of the passengers, the company will pay the cost of the emergency medical treatment for the injured persons up to 3,500 EGP per accident with maximum of 5,000 EGP per year.",
+          "notes": "",
+          "serviceList": [],
+          "img": "ic_first-aid-kit.svg"
+        }
+      ]
+    }
+  ]
+}

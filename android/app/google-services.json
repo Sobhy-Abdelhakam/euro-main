@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "680614718584",
+    "project_id": "euro-22e3d",
+    "storage_bucket": "euro-22e3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680614718584:android:933ff20de78bda6195118d",
+        "android_client_info": {
+          "package_name": "com.euroclub.rescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680614718584-d7vvn4bf0rqt1v55dt7susospa936ogh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.euroclub.rescue",
+            "certificate_hash": "d10edc050bf2917c4eb3431a6c5badf1def4161d"
+          }
+        },
+        {
+          "client_id": "680614718584-rmvlb487r7oa7su0cjjgr9ocilac4lv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxhbeMDWjEE7eWwr1XgUJhdEal7MXwheE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680614718584-rmvlb487r7oa7su0cjjgr9ocilac4lv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

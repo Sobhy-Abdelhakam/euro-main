@@ -1,0 +1,90 @@
+name: euro
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 5.1.0+50006
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  intl: ^0.20.2
+  localization: ^2.1.1
+
+  responsive_framework: ^1.5.1
+  flutter_screenutil: ^5.9.3
+
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.10+1
+  auto_size_text: ^3.0.0
+  flutter_staggered_grid_view: ^0.7.0
+
+  flutter_staggered_animations: ^1.1.1
+  phlox_animations: ^2.1.1
+
+  flutter_offline: ^4.0.0
+  share_plus: ^10.0.1
+
+  flutter_bloc: ^8.1.6
+
+  get_it: ^7.7.0
+
+  dio: ^5.7.0
+
+  equatable: ^2.0.5
+
+  hive_flutter: ^1.1.0
+
+  location: ^6.0.0
+  geolocator: ^12.0.0
+  geocoding: ^3.0.0
+  google_maps_flutter: ^2.9.0
+
+  image_picker: ^1.1.2
+
+  url_launcher: ^6.3.0
+
+  logger: ^2.4.0
+
+#  device_preview: ^1.2.0
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+
+  #  flutter pub run change_app_package_name:main com.euroclub.rescue
+#  change_app_package_name: ^1.1.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/png/
+    - assets/images/gif/
+    - assets/images/svg/
+    - assets/images/jpeg/
+    - assets/text/
+    - assets/json/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Italic.ttf
+          style: italic
+    - family: NotoNaskhArabic
+      fonts:
+        - asset: assets/fonts/NotoNaskhArabic/NotoNaskhArabic.ttf
+
+flutter_intl:
+  enabled: true
