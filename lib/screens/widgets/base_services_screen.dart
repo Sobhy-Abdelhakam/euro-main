@@ -107,6 +107,19 @@ class _BaseServicesScreenState extends State<BaseServicesScreen> {
                               });
                     } catch (e) {
                       log("$e");
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('$e'),
+                            action: SnackBarAction(
+                              label: 'Retry',
+                              onPressed: () {
+                                // Trigger tap again on retry
+                              },
+                            ),
+                          ),
+                        );
+                      }
                     }
                   },
                   child: Container(

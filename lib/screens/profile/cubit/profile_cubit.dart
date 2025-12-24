@@ -53,31 +53,41 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void save() {
     if (formKey.currentState!.validate()) {
-      _currentUser = UserModel(
-          name: nameController.text,
-          address: addressController.text,
-          carChars: carLettersController.text,
-          carModel: carModelController.text,
-          carNumbers: carNumbersController.text.isNotEmpty
-              ? int.parse(carNumbersController.text)
-              : null,
-          carType: carTypeController.text,
-          membershipId: documentIdController.text,
-          membershipSource: documentSourceController.text,
-          phoneNumber: int.parse(phoneController.text),
-          sashaNumber: chassisNumbersController.text.isNotEmpty
-              ? int.parse(chassisNumbersController.text)
-              : null);
-      if (_savedUser == null) {
-        HiveUtils.saveUser(_currentUser);
-        emit(ProfileMessage(message: S.current.saved_successfully));
-      } else {
-        if (_savedUser == _currentUser) {
-          emit(ProfileMessage(message: S.current.no_changes));
-        } else {
+      try {
+        final parsedPhone = int.tryParse(phoneController.text);
+        if (parsedPhone == null) {
+          emit(ProfileMessage(message: S.current.emptyField(S.current.phone_number)));
+          return;
+        }
+        
+        _currentUser = UserModel(
+            name: nameController.text,
+            address: addressController.text,
+            carChars: carLettersController.text,
+            carModel: carModelController.text,
+            carNumbers: carNumbersController.text.isNotEmpty
+                ? int.tryParse(carNumbersController.text)
+                : null,
+            carType: carTypeController.text,
+            membershipId: documentIdController.text,
+            membershipSource: documentSourceController.text,
+            phoneNumber: parsedPhone,
+            sashaNumber: chassisNumbersController.text.isNotEmpty
+                ? int.tryParse(chassisNumbersController.text)
+                : null);
+        if (_savedUser == null) {
           HiveUtils.saveUser(_currentUser);
           emit(ProfileMessage(message: S.current.saved_successfully));
+        } else {
+          if (_savedUser == _currentUser) {
+            emit(ProfileMessage(message: S.current.no_changes));
+          } else {
+            HiveUtils.saveUser(_currentUser);
+            emit(ProfileMessage(message: S.current.saved_successfully));
+          }
         }
+      } catch (e) {
+        emit(ProfileMessage(message: 'Error saving profile: $e'));
       }
     }
   }

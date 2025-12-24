@@ -34,35 +34,66 @@ class _MapScreenState extends State<MapScreen> {
   final Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   int _markerIdCounter = 0;
   final Completer<GoogleMapController> _mapController = Completer();
+  GoogleMapController? _controller;
+  bool _isDisposed = false;
   LatLng? _selectedLocation;
 
-  void _onMapCreated(GoogleMapController controller) async {
+  Future<void> _onMapCreated(GoogleMapController controller) async {
+    if (_isDisposed) return;
+    
     _mapController.complete(controller);
-    MarkerId markerId = MarkerId(_markerIdVal());
-    LatLng position = widget.location;
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/png/ic_marker.png', 65);
-    Marker marker = Marker(
-      icon: BitmapDescriptor.bytes(markerIcon),
-      markerId: markerId,
-      position: position,
-      draggable: false,
-    );
-    setState(() {
-      _markers[markerId] = marker;
-    });
-
-    Future.delayed(const Duration(seconds: 1), () async {
-      GoogleMapController controller = await _mapController.future;
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: position,
-            zoom: 16.0,
-          ),
-        ),
+    _controller = controller;
+    
+    try {
+      MarkerId markerId = MarkerId(_markerIdVal());
+      LatLng position = widget.location;
+      final Uint8List? markerIcon = await _loadMarkerIcon();
+      
+      if (_isDisposed) return;
+      
+      Marker marker = Marker(
+        icon: markerIcon != null 
+            ? BitmapDescriptor.bytes(markerIcon)
+            : BitmapDescriptor.defaultMarker,
+        markerId: markerId,
+        position: position,
+        draggable: false,
       );
-    });
+      
+      if (mounted) {
+        setState(() {
+          _markers[markerId] = marker;
+        });
+      }
+
+      Future.delayed(const Duration(seconds: 1), () async {
+        if (_isDisposed || !mounted) return;
+        try {
+          final mapController = await _mapController.future;
+          mapController.animateCamera(
+            CameraUpdate.newCameraPosition(
+              CameraPosition(
+                target: position,
+                zoom: 16.0,
+              ),
+            ),
+          );
+        } catch (e) {
+          debugPrint('Error animating camera: $e');
+        }
+      });
+    } catch (e) {
+      debugPrint('Error in _onMapCreated: $e');
+    }
+  }
+  
+  Future<Uint8List?> _loadMarkerIcon() async {
+    try {
+      return await getBytesFromAsset('assets/images/png/ic_marker.png', 65);
+    } catch (e) {
+      debugPrint('Error loading marker icon: $e');
+      return null;
+    }
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -119,17 +150,26 @@ class _MapScreenState extends State<MapScreen> {
 
   // Method to pick image from the selected source
   Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(
-        source: source,
-        imageQuality: 40,
-        requestFullMetadata: false,
-        maxHeight: 800,
-        maxWidth: 480);
+    try {
+      final pickedFile = await _picker.pickImage(
+          source: source,
+          imageQuality: 40,
+          requestFullMetadata: false,
+          maxHeight: 800,
+          maxWidth: 480);
 
-    if (pickedFile != null) {
-      setState(() {
-        _images.add(File(pickedFile.path));
-      });
+      if (pickedFile != null && mounted) {
+        setState(() {
+          _images.add(File(pickedFile.path));
+        });
+      }
+    } catch (e) {
+      debugPrint('Error picking image: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to pick image: $e')),
+        );
+      }
     }
   }
 
@@ -509,6 +549,8 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void dispose() {
+    _isDisposed = true;
+    _controller?.dispose();
     super.dispose();
   }
 }

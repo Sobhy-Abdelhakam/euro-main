@@ -23,12 +23,23 @@ class ServicesScreen extends StatefulWidget {
 }
 
 class _ServicesScreenState extends State<ServicesScreen> {
-  late List<Widget> taps;
+  List<Widget> taps = [];
 
   @override
   void initState() {
     super.initState();
-    // taps = ServicesType.services.map((e) => Text(e)).toList();
+  }
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Initialize tabs here where S.of(context) is available
+    if (taps.isEmpty) {
+      taps = [
+        Text(S.of(context).medical_services),
+        Text(S.of(context).roadside_services),
+      ];
+    }
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();

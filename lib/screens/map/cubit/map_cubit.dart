@@ -42,7 +42,9 @@ class MapCubit extends Cubit<MapState> {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng);
 
-      Placemark place = placemarks[0];
+      if (placemarks.isEmpty) return address;
+      
+      Placemark place = placemarks.first;
 
       address =
           "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
