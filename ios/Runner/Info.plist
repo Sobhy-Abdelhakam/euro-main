@@ -24,23 +24,54 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	
+	<!-- App Store Export Compliance - No encryption used -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	
+	<!-- URL Schemes the app can query -->
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sms</string>
 		<string>tel</string>
+		<string>whatsapp</string>
+		<string>https</string>
+		<string>http</string>
 	</array>
+	
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	
+	<!-- Location Permissions -->
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>App needs access to location to locate nearby services.</string>
+	<string>Euro Assist needs your location to find nearby assistance services and show your position on the map.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App needs access to location to locate nearby services.</string>
+	<string>Euro Assist needs your location to find nearby assistance services and show your position on the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App needs access to location to locate nearby services.</string>
+	<string>Euro Assist needs your location to find nearby assistance services and show your position on the map.</string>
+	
+	<!-- Camera and Photo Permissions -->
+	<key>NSCameraUsageDescription</key>
+	<string>Euro Assist needs camera access to take photos of your vehicle or situation for assistance requests.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Euro Assist needs photo library access to attach existing photos to your assistance requests.</string>
+	
+	<!-- App Transport Security - Allow secure connections -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<false/>
+	</dict>
+	
+	<!-- Launch Screen -->
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	
+	<!-- Supported Orientations -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -54,11 +85,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>This app needs camera access to take photos for assistance requests.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs photo library access to select images for assistance requests.</string>
 </dict>
 </plist>
