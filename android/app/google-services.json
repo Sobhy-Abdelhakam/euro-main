@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:680614718584:android:933ff20de78bda6195118d",
         "android_client_info": {
-          "package_name": "com.euroclub.rescue"
+          "package_name": "com.euroassist.app"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "680614718584-d7vvn4bf0rqt1v55dt7susospa936ogh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.euroclub.rescue",
+            "package_name": "com.euroassist.app",
             "certificate_hash": "d10edc050bf2917c4eb3431a6c5badf1def4161d"
           }
         },

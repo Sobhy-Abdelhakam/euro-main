@@ -60,22 +60,18 @@ class ServiceDrawer extends StatelessWidget {
                   children: [
                     ServiceDrawerItem(
                       icon: Icons.settings,
-                      text: S
-                          .of(context)
-                          .services,
+                      text: S.of(context).services,
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (_) => const WelcomeScreen()),
-                                (route) => false);
+                            (route) => false);
                       },
                     ),
                     ServiceDrawerItem(
                       icon: Icons.account_circle,
-                      text: S
-                          .of(context)
-                          .profile,
+                      text: S.of(context).profile,
                       onTap: () {
                         Navigator.pop(context);
 
@@ -87,25 +83,21 @@ class ServiceDrawer extends StatelessWidget {
                     ),
                     ServiceDrawerItem(
                       icon: Icons.task,
-                      text: S
-                          .of(context)
-                          .requestAssistance,
+                      text: S.of(context).requestAssistance,
                       onTap: () async {
                         try {
                           await LocationHelper.determinePosition()
-                              .then((location) =>
-                          {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) =>
-                                    MapScreen(
-                                      location: LatLng(location.latitude,
-                                          location.longitude),
-                                    ),
-                              ),
-                            )
-                          });
+                              .then((location) => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => MapScreen(
+                                          location: LatLng(location.latitude,
+                                              location.longitude),
+                                        ),
+                                      ),
+                                    )
+                                  });
                         } catch (e) {
                           log("$e");
                         }
@@ -113,9 +105,7 @@ class ServiceDrawer extends StatelessWidget {
                     ),
                     ServiceDrawerItem(
                       icon: Icons.task,
-                      text: S
-                          .of(context)
-                          .requestAMembership,
+                      text: S.of(context).requestAMembership,
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(
@@ -125,9 +115,7 @@ class ServiceDrawer extends StatelessWidget {
                       },
                     ),
                     ServiceDrawerItem(
-                      text: S
-                          .of(context)
-                          .aboutUs,
+                      text: S.of(context).aboutUs,
                       icon: Icons.people,
                       onTap: () {
                         Navigator.push(
@@ -137,9 +125,7 @@ class ServiceDrawer extends StatelessWidget {
                       },
                     ),
                     ServiceDrawerItem(
-                      text: S
-                          .of(context)
-                          .termsOfUse,
+                      text: S.of(context).termsOfUse,
                       icon: Icons.task,
                       onTap: () {
                         Navigator.push(
@@ -149,21 +135,17 @@ class ServiceDrawer extends StatelessWidget {
                       },
                     ),
                     ServiceDrawerItem(
-                      text: S
-                          .of(context)
-                          .share,
+                      text: S.of(context).share,
                       icon: Icons.share,
                       onTap: () {
                         Share.share(Platform.isAndroid
-                            ? "https://play.google.com/store/apps/details?id=com.euroclub.rescue"
+                            ? "https://play.google.com/store/apps/details?id=com.euroassist.app"
                             : "https://apps.apple.com/app/id1228959878");
                       },
                     ),
                     if (HiveUtils.getUser != null)
                       ServiceDrawerItem(
-                        text: S
-                            .of(context)
-                            .logOut,
+                        text: S.of(context).logOut,
                         icon: Icons.logout,
                         onTap: () {
                           HiveUtils.deleteUser();

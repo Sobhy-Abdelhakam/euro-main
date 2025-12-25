@@ -1,4 +1,4 @@
-package com.euroclub.rescue
+package com.euroassist.app
 
 import io.flutter.embedding.android.FlutterActivity
 
