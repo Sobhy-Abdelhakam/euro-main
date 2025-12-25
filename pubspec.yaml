@@ -14,8 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  intl: ^0.20.2
-  localization: ^2.1.1
+  intl: any
 
   responsive_framework: ^1.5.1
   flutter_screenutil: ^5.9.3
@@ -64,6 +63,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - assets/images/png/
@@ -85,6 +85,3 @@ flutter:
     - family: NotoNaskhArabic
       fonts:
         - asset: assets/fonts/NotoNaskhArabic/NotoNaskhArabic.ttf
-
-flutter_intl:
-  enabled: true

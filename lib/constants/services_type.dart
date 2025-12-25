@@ -1,4 +1,4 @@
-// import 'package:euro/generated/l10n.dart';
+//
 
 // abstract class ServicesType {
 //   static int selectedIndex = 0;

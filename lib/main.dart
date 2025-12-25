@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:euro/injection.dart';
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/screens/about_us/cubit/about_us_cubit.dart';
 import 'package:euro/screens/app_config/app_config_cubit.dart';
 import 'package:euro/screens/service_details/cubit/service_details_cubit.dart';
@@ -12,11 +13,10 @@ import 'package:euro/utils/hive/hive_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import 'generated/l10n.dart';
+// import 'generated/l10n.dart';
 import 'screens/medical_services/cubit/medical_services_cubit.dart';
 import 'screens/roadside_assist_services/cubit/roadside_assist_services_cubit.dart';
 
@@ -71,24 +71,24 @@ class _InitializationErrorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                const SizedBox(height: 16),
-                const Text(
+               Icon(Icons.error_outline, size: 64, color: Colors.red),
+               SizedBox(height: 16),
+               Text(
                   'Failed to initialize app',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 8),
-                const Text(
+               SizedBox(height: 8),
+               Text(
                   'Please restart the application',
                   textAlign: TextAlign.center,
                 ),
@@ -144,13 +144,9 @@ class MyApp extends StatelessWidget {
                     return MaterialApp(
                       locale: Locale(HiveUtils.getLanguage),
                       debugShowCheckedModeBanner: false,
-                      localizationsDelegates: const [
-                        S.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                      ],
-                      supportedLocales: S.delegate.supportedLocales,
+                      localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+
                       title: 'Euro Assist',
                       builder: (context, child) {
                         return ResponsiveBreakpoints.builder(
