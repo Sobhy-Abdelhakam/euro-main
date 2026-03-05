@@ -11,55 +11,42 @@ class SelectLang extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Image.asset(
-                ImagePath.getPng(imageName: "logo"),
-                height: 50,
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: () {
-                  selectLang("ar", context);
-                },
-                child: const LangWidget(
-                  title: "العربيه",
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: ListView(
+              children: [
+                const SizedBox(height: 20),
+
+                Image.asset(
+                  ImagePath.getPng(imageName: "logo"),
+                  height: 50,
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              InkWell(
-                onTap: () {
-                  selectLang("en", context);
-                },
-                child: const LangWidget(
-                  title: "English",
-                ),
-              ),
-            ],
+                const SizedBox(height: 60),
+                _langButton(context, "العربية", "ar"),
+              const SizedBox(height: 30),
+              _langButton(context, "English", "en"),
+              ],
+            ),
           ),
-        ),
       ),
     );
   }
 
-  void selectLang(String languageCode, BuildContext context) {
-    BlocProvider.of<AppConfigCubit>(context).setLanguage(languageCode);
+  Widget _langButton(BuildContext context, String title, String code) {
+    return GestureDetector(
+      onTap: () => _selectLang(context, code),
+      child: LangWidget(title: title),
+    );
+  }
+  void _selectLang(BuildContext context, String code) {
+    context.read<AppConfigCubit>().setLanguage(code);
     HiveUtils.confirmFirstTime();
-    Navigator.push(
-        context, MaterialPageRoute(builder: (_) => const WelcomeScreen()));
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+    );
   }
 }
