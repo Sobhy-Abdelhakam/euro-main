@@ -13,5 +13,4 @@ abstract class ImagePath{
 
   static String getSvg({required String imageName}){
     return "assets/images/svg/$imageName.svg";
-  }
-}
+  }}

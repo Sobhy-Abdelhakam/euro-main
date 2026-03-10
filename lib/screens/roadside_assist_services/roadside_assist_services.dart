@@ -25,69 +25,71 @@ class _RoadsideAssistServicesScreenState
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 1,
-      child: Scaffold(key:scaffoldKey ,
-        drawer: ServiceDrawer(scaffoldKey: scaffoldKey),
-        appBar: AppBar(
-          bottom: TabBar(
-            indicatorColor: Colors.red,
-            labelColor: Colors.red,
-            unselectedLabelColor: Colors.black,
-            tabs: [
-              // Tab(
-              //   text: S.of(context).corporates,
-              // ),
-              Tab(
-                text: S.of(context).individuals,
-              )
+    // ensure a cubit is provided for this screen regardless of where it's used
+    return BlocProvider<RoadsideAssistServicesCubit>(
+      create: (_) => RoadsideAssistServicesCubit(),
+      child: DefaultTabController(
+        length: 1,
+        child: Scaffold(
+          key: scaffoldKey,
+          drawer: ServiceDrawer(scaffoldKey: scaffoldKey),
+          appBar: AppBar(
+            bottom: TabBar(
+              indicatorColor: Colors.red,
+              labelColor: Colors.red,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                Tab(
+                  text: S.of(context).individuals,
+                )
+              ],
+            ),
+            title: Image.asset(
+              ImagePath.getPng(imageName: "logo"),
+              height: 45,
+            ),
+            backgroundColor: AppColors.grey,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  WhatsAppMessage.whatsappMessage(roadsideWhatsApp, '');
+                },
+                icon: const Icon(Icons.call),
+              ),
+              IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const LanguageDialog();
+                      });
+                },
+                icon: const Icon(Icons.language),
+              ),
             ],
           ),
-          title: Image.asset(
-            ImagePath.getPng(imageName: "logo"),
-            height: 45,
-          ),
-          backgroundColor: AppColors.grey,
-          actions: [
-            IconButton(
-              onPressed: () {
-                WhatsAppMessage.whatsappMessage(roadsideWhatsApp, '');
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: BlocBuilder<RoadsideAssistServicesCubit,
+                RoadsideAssistServicesState>(
+              builder: (context, state) {
+                if (state is RoadsideAssistServicesLoaded) {
+                  return TabBarView(
+                    children: [
+                      ServicesIndividuals(
+                        services: state.servicesIndividuals,
+                      ),
+                    ],
+                  );
+                } else if (state is RoadsideAssistServicesError) {
+                  return const Center(
+                    child: Text("No services"),
+                  );
+                } else {
+                  return const Text("Loading...");
+                }
               },
-              icon: const Icon(Icons.call),
             ),
-            IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const LanguageDialog();
-                    });
-              },
-              icon: const Icon(Icons.language),
-            ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: BlocBuilder<RoadsideAssistServicesCubit,
-              RoadsideAssistServicesState>(
-            builder: (context, state) {
-              if (state is RoadsideAssistServicesLoaded) {
-                return TabBarView(
-                  children: [
-                    ServicesIndividuals(
-                      services: state.servicesIndividuals,
-                    ),
-                  ],
-                );
-              } else if (state is RoadsideAssistServicesError) {
-                return const Center(
-                  child: Text("No services"),
-                );
-              } else {
-                return const Text("Loading...");
-              }
-            },
           ),
         ),
       ),

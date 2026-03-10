@@ -93,13 +93,22 @@ class LanguageDialog extends StatelessWidget {
       return;
     }
     BlocProvider.of<AppConfigCubit>(context).setLanguage(codeLang);
-    BlocProvider.of<MedicalServicesCubit>(context).getServices();
+    try {
+      BlocProvider.of<MedicalServicesCubit>(context).getServices();
+    } catch (_) {
+      // cubit not in context
+    }
     BlocProvider.of<SubServicesCubit>(context).getServices();
     BlocProvider.of<ServiceDetailsCubit>(context).getServices();
     BlocProvider.of<TermsOfUseCubit>(context).getString();
     BlocProvider.of<AboutUsCubit>(context).getString();
 
-    BlocProvider.of<RoadsideAssistServicesCubit>(context).getServices();
+    // reload roadside services if cubit is available
+    try {
+      BlocProvider.of<RoadsideAssistServicesCubit>(context).getServices();
+    } catch (_) {
+      // cubit not provided in this context, ignore
+    }
     Navigator.pop(context);
   }
 }

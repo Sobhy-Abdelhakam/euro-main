@@ -41,8 +41,8 @@ class SelectLang extends StatelessWidget {
     );
   }
   void _selectLang(BuildContext context, String code) {
-    context.read<AppConfigCubit>().setLanguage(code);
     HiveUtils.confirmFirstTime();
+    context.read<AppConfigCubit>().setLanguage(code);
 
     Navigator.pushReplacement(
       context,

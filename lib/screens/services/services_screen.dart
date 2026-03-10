@@ -4,13 +4,16 @@ import 'package:euro/constants/constants.dart';
 import 'package:euro/generated/l10n.dart';
 import 'package:euro/screens/map/map_screen.dart';
 import 'package:euro/screens/medical_services/medical_services_screen.dart';
+import 'package:euro/screens/medical_services/cubit/medical_services_cubit.dart';
 import 'package:euro/screens/roadside_assist_services/roadside_assist_services.dart';
+import 'package:euro/screens/roadside_assist_services/cubit/roadside_assist_services_cubit.dart';
 import 'package:euro/screens/services/widgets/service_drawer.dart';
 import 'package:euro/utils/app_colors.dart';
 import 'package:euro/utils/location_helper.dart';
 import 'package:euro/utils/paths/image_path.dart';
 import 'package:euro/utils/whatsapp_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'widgets/language_dialog.dart';
@@ -29,7 +32,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   void initState() {
     super.initState();
   }
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -116,12 +119,19 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ),
         body: Column(
           children: [
-            const Expanded(
+            Expanded(
               flex: 3,
               child: TabBarView(
                 children: [
-                  MedicalServicesScreen(),
-                  RoadsideAssistServicesScreen(),
+                  BlocProvider(
+                    create: (_) => MedicalServicesCubit(),
+                    child: MedicalServicesScreen(),
+                  ),
+                  // provide cubit for roadside services to avoid ProviderNotFoundException
+                  BlocProvider(
+                    create: (_) => RoadsideAssistServicesCubit(),
+                    child: RoadsideAssistServicesScreen(),
+                  ),
                 ],
               ),
             ),
@@ -133,16 +143,16 @@ class _ServicesScreenState extends State<ServicesScreen> {
                     try {
                       await LocationHelper.determinePosition()
                           .then((location) => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => MapScreen(
-                              location: LatLng(location.latitude,
-                                  location.longitude),
-                            ),
-                          ),
-                        )
-                      });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => MapScreen(
+                                      location: LatLng(location.latitude,
+                                          location.longitude),
+                                    ),
+                                  ),
+                                )
+                              });
                     } catch (e) {
                       log("$e");
                     }

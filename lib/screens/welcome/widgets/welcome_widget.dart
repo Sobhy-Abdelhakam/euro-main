@@ -1,40 +1,73 @@
-import 'package:euro/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeWidget extends StatelessWidget {
   final String imagePath;
   final String title;
   final String? subTitle;
+  final VoidCallback? onTap;
 
-  const WelcomeWidget(
-      {super.key, required this.imagePath, required this.title, this.subTitle});
+  const WelcomeWidget({
+    super.key,
+    required this.imagePath,
+    required this.title,
+    this.subTitle,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: AppColors.red, width: 1),
-          borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        children: [
-          Image.asset(
-            imagePath,
-            height: 200,
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      elevation: 3,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+          child: Row(
+            children: [
+              Image.asset(
+                imagePath,
+                height: 60,
+                width: 60,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(width: 16),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (subTitle != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        subTitle!,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ]
+                  ],
+                ),
+              ),
+
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: Colors.grey,
+              )
+            ],
           ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          if (subTitle != null)
-            Text(
-              subTitle!,
-              textDirection: TextDirection.ltr,
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-        ],
+        ),
       ),
     );
   }

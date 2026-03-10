@@ -24,10 +24,13 @@ class _MedicalServicesScreenState extends State<MedicalServicesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      drawer: ServiceDrawer(scaffoldKey: scaffoldKey),
-      appBar: AppBar(
+    // always provide cubit for this screen
+    return BlocProvider<MedicalServicesCubit>(
+      create: (_) => MedicalServicesCubit(),
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: ServiceDrawer(scaffoldKey: scaffoldKey),
+        appBar: AppBar(
         title: Image.asset(
           ImagePath.getPng(imageName: "logo"),
           height: 45,
@@ -77,6 +80,7 @@ class _MedicalServicesScreenState extends State<MedicalServicesScreen> {
           },
         ),
       ),
+    ), // close Scaffold
     );
   }
 }

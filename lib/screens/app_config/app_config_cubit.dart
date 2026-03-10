@@ -5,13 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'app_config_state.dart';
 
 class AppConfigCubit extends Cubit<AppConfigState> {
-  AppConfigCubit() : super(AppConfigInitial(locale: const Locale("en"))) {
-    getLanguage();
-  }
-
-  void getLanguage() {
-    emit(AppConfigInitial(locale: Locale(HiveUtils.getLanguage)));
-  }
+  AppConfigCubit()
+      : super(AppConfigInitial(locale: Locale(HiveUtils.getLanguage)));
 
   void setLanguage(String languageCode) {
     emit(AppConfigInitial(locale: Locale(languageCode)));

@@ -35,9 +35,13 @@ abstract class HiveUtils {
     Hive.box(HiveBoxes.user).delete(HiveKeys.user);
   }
 
-  static void setLanguage(String languageCode) async {
-     Hive.box(HiveBoxes.appConfig).put(HiveKeys.language, languageCode);
-  }
+  // static void setLanguage(String languageCode) async {
+  //    Hive.box(HiveBoxes.appConfig).put(HiveKeys.language, languageCode);
+  // }
+  static Future<void> setLanguage(String languageCode) async {
+  await Hive.box(HiveBoxes.appConfig)
+      .put(HiveKeys.language, languageCode);
+}
 
   static String get getLanguage {
     return Hive.box(HiveBoxes.appConfig)

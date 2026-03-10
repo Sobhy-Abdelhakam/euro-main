@@ -9,14 +9,18 @@ class LangWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: AppColors.red, width: 1),
-          borderRadius: BorderRadius.circular(12)),
-      child: Center(
-        child: Text(title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        border: Border.all(color: AppColors.red),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

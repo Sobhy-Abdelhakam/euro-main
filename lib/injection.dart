@@ -5,20 +5,33 @@ import 'utils/interceptors.dart';
 
 final GetIt getIt = GetIt.instance;
 
+const _baseUrl = "https://api.euroassistance.net/";
+const _timeout = Duration(minutes: 1);
+
 void injection() {
-  const duration = Duration(minutes: 1);
-  getIt.registerSingleton<BaseOptions>(
-    BaseOptions(
-      baseUrl: "https://api.euroassistance.net/",
-      sendTimeout: duration,
-      connectTimeout: duration,
-      receiveTimeout: duration,
-    ),
+  if (!getIt.isRegistered<Dio>()) {
+    getIt
+      ..registerLazySingleton<BaseOptions>(_baseOptions)
+      ..registerLazySingleton<Dio>(_dio);
+  }
+}
+
+BaseOptions _baseOptions() {
+  return BaseOptions(
+    baseUrl: _baseUrl,
+    sendTimeout: _timeout,
+    connectTimeout: _timeout,
+    receiveTimeout: _timeout,
   );
-  getIt.registerSingleton<Dio>(Dio(getIt<BaseOptions>())
-    ..interceptors.addAll([
-      AuthInterceptor(),
-      LoggingInterceptor(),
-      // AdapterInterceptor(),
-    ]));
+}
+
+Dio _dio() {
+  final dio = Dio(getIt<BaseOptions>());
+
+  dio.interceptors.addAll([
+    AuthInterceptor(),
+    LoggingInterceptor(),
+  ]);
+
+  return dio;
 }

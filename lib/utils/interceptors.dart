@@ -106,7 +106,7 @@ class AdapterInterceptor extends Interceptor {
       if (content.isEmpty) {
         content = defaultError;
       }
-      result = Log.i('$successFormat $content');
+      result = successFormat.replaceFirst('%s', content);
       response.statusCode = 200;
     } else {
       result = Log.e('$failureFormat ${response.statusCode} $notFoundError');
