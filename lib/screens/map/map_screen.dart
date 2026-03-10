@@ -40,26 +40,26 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     if (_isDisposed) return;
-    
+
     _mapController.complete(controller);
     _controller = controller;
-    
+
     try {
       MarkerId markerId = MarkerId(_markerIdVal());
       LatLng position = widget.location;
       final Uint8List? markerIcon = await _loadMarkerIcon();
-      
+
       if (_isDisposed) return;
-      
+
       Marker marker = Marker(
-        icon: markerIcon != null 
+        icon: markerIcon != null
             ? BitmapDescriptor.bytes(markerIcon)
             : BitmapDescriptor.defaultMarker,
         markerId: markerId,
         position: position,
         draggable: false,
       );
-      
+
       if (mounted) {
         setState(() {
           _markers[markerId] = marker;
@@ -86,7 +86,7 @@ class _MapScreenState extends State<MapScreen> {
       debugPrint('Error in _onMapCreated: $e');
     }
   }
-  
+
   Future<Uint8List?> _loadMarkerIcon() async {
     try {
       return await getBytesFromAsset('assets/images/png/ic_marker.png', 65);

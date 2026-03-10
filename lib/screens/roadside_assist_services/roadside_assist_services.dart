@@ -74,7 +74,7 @@ class _RoadsideAssistServicesScreenState
                 RoadsideAssistServicesState>(
               builder: (context, state) {
                 if (state is RoadsideAssistServicesLoaded) {
-                  return TabBarView(
+                  return TabBarView( 
                     children: [
                       ServicesIndividuals(
                         services: state.servicesIndividuals,
