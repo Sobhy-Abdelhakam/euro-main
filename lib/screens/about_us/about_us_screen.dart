@@ -278,7 +278,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                                       Utils.emailTo(medicalEmail);
                                     },
                                     child: const AutoSizeText(
-                                      roadsideEmail,
+                                      medicalEmail,
                                       maxLines: 1,
                                       style: TextStyle(
                                           fontSize: 21,
@@ -290,7 +290,10 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                                 ),
                               ],
                             ),
-                            AutoSizeText(S.of(context).copyright,maxLines: 1,)
+                            AutoSizeText(
+                              S.of(context).copyright,
+                              maxLines: 1,
+                            )
                           ],
                         ),
                       ),

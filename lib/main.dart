@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:euro/injection.dart';
 import 'package:euro/l10n/app_localizations.dart';
+import 'package:euro/screens/about_us/cubit/about_us_cubit.dart';
 import 'package:euro/screens/app_config/app_config_cubit.dart';
 import 'package:euro/screens/splash/splash_screen.dart';
 import 'package:euro/utils/hive/hive_utils.dart';
@@ -60,9 +61,9 @@ class MyApp extends StatelessWidget {
           // BlocProvider(
           //   create: (context) => RoadsideAssistServicesCubit(),
           // ),
-          // BlocProvider(
-          //   create: (context) => AboutUsCubit()..getString(),
-          // ),
+          BlocProvider(
+            create: (context) => AboutUsCubit()..getString(),
+          ),
           // BlocProvider(
           //   create: (context) => TermsOfUseCubit()..getString(),
           // )
