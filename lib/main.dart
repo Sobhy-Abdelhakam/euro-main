@@ -4,7 +4,9 @@ import 'package:euro/injection.dart';
 import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/screens/about_us/cubit/about_us_cubit.dart';
 import 'package:euro/screens/app_config/app_config_cubit.dart';
+import 'package:euro/screens/service_details/cubit/service_details_cubit.dart';
 import 'package:euro/screens/splash/splash_screen.dart';
+import 'package:euro/screens/terms_of_use/cubit/terms_of_use_cubit.dart';
 import 'package:euro/utils/hive/hive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,9 +54,9 @@ class MyApp extends StatelessWidget {
           // BlocProvider(
           //   create: (context) => SubServicesCubit()..getServices(),
           // ),
-          // BlocProvider(
-          //   create: (context) => ServiceDetailsCubit(),
-          // ),
+          BlocProvider(
+            create: (context) => ServiceDetailsCubit(),
+          ),
           BlocProvider(
             create: (context) => AppConfigCubit(),
           ),
@@ -64,9 +66,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AboutUsCubit()..getString(),
           ),
-          // BlocProvider(
-          //   create: (context) => TermsOfUseCubit()..getString(),
-          // )
+          BlocProvider(
+            create: (context) => TermsOfUseCubit()..getString(),
+          )
         ],
         child: ScreenUtilInit(
             designSize: const Size(360, 690),
