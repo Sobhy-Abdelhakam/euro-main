@@ -18,7 +18,6 @@ class MedicalServicesScreen extends StatefulWidget {
   State<MedicalServicesScreen> createState() => _MedicalServicesScreenState();
 }
 
-
 class _MedicalServicesScreenState extends State<MedicalServicesScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,56 +30,56 @@ class _MedicalServicesScreenState extends State<MedicalServicesScreen> {
         key: scaffoldKey,
         drawer: ServiceDrawer(scaffoldKey: scaffoldKey),
         appBar: AppBar(
-        title: Image.asset(
-          ImagePath.getPng(imageName: "logo"),
-          height: 45,
+          title: Image.asset(
+            ImagePath.getPng(imageName: "logo"),
+            height: 45,
+          ),
+          backgroundColor: AppColors.grey,
+          actions: [
+            IconButton(
+              onPressed: () {
+                WhatsAppMessage.whatsappMessage(roadsideWhatsApp, '');
+              },
+              icon: const Icon(Icons.call),
+            ),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const LanguageDialog();
+                    });
+              },
+              icon: const Icon(Icons.language),
+            ),
+          ],
         ),
-        backgroundColor: AppColors.grey,
-        actions: [
-          IconButton(
-            onPressed: () {
-              WhatsAppMessage.whatsappMessage(roadsideWhatsApp, '');
-            },
-            icon: const Icon(Icons.call),
-          ),
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const LanguageDialog();
-                  });
-            },
-            icon: const Icon(Icons.language),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: BlocBuilder<MedicalServicesCubit, MedicalServicesState>(
-          builder: (context, state) {
-            if (state is MedicalServicesLoaded) {
-              if (state.services.isNotEmpty) {
-                return BaseServicesScreen(
-                  services: state.services,
-                  servicesBaseType: ServicesBaseType.medical,
-                );
-              } else {
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: BlocBuilder<MedicalServicesCubit, MedicalServicesState>(
+            builder: (context, state) {
+              if (state is MedicalServicesLoaded) {
+                if (state.services.isNotEmpty) {
+                  return BaseServicesScreen(
+                    services: state.services,
+                    servicesBaseType: ServicesBaseType.medical,
+                  );
+                } else {
+                  return const Center(
+                    child: Text("No services"),
+                  );
+                }
+              } else if (state is MedicalServicesError) {
                 return const Center(
                   child: Text("No services"),
                 );
+              } else {
+                return const Text("Loading...");
               }
-            } else if (state is MedicalServicesError) {
-              return const Center(
-                child: Text("No services"),
-              );
-            } else {
-              return const Text("Loading...");
-            }
-          },
+            },
+          ),
         ),
-      ),
-    ), // close Scaffold
+      ), // close Scaffold
     );
   }
 }
