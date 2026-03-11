@@ -8,8 +8,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await HiveUtils.init();
-  // injection();
   runApp(const MyApp());
 }
 
@@ -23,10 +21,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Euro Assist',
       locale: const Locale('ar'),
-      // locale: Locale(HiveUtils.getLanguage),
-      // supportedLocales: AppLocalizations.supportedLocales,
-      // localizationsDelegates:
-      //     AppLocalizations.localizationsDelegates,
       theme: AppTheme.light,
       builder: (context, child) {
         return MediaQuery(
