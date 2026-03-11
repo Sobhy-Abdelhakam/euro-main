@@ -320,6 +320,9 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
     );
 
     final l10n = AppLocalizations.of(context)!;
+    final latText = position!.latitude.toStringAsFixed(6);
+    final lngText = position!.longitude.toStringAsFixed(6);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -329,35 +332,75 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
         ),
         const SizedBox(height: 10),
         Container(
-          height: 200,
+          height: 220,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.shade300),
           ),
-          child: GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: latLng,
-              zoom: 15,
-            ),
-            markers: {
-              Marker(
-                markerId: const MarkerId('me'),
-                position: latLng,
-              )
-            },
-            zoomControlsEnabled: false,
-            myLocationEnabled: true,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: latLng,
+                  zoom: 15,
+                ),
+                markers: {
+                  Marker(
+                    markerId: const MarkerId('me'),
+                    position: latLng,
+                  )
+                },
+                zoomControlsEnabled: false,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                onTap: (_) => selectLocation(),
+              ),
+              Positioned.fill(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: selectLocation,
+                    splashColor: Colors.white.withOpacity(0.2),
+                    highlightColor: Colors.white.withOpacity(0.05),
+                  ),
+                ),
+              ),
+              const Center(
+                child: Icon(
+                  Icons.location_on,
+                  size: 36,
+                  color: Colors.redAccent,
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 10),
         Row(
           children: [
-            const Icon(Icons.location_on, color: Colors.red),
+            const Icon(Icons.place, color: Colors.red),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Coordinates: $latText, $lngText',
+                style: const TextStyle(fontSize: 14),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            const Icon(Icons.location_on, size: 18, color: Colors.grey),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 address ?? l10n.sosSheetLoadingAddress,
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 13, color: Colors.black87),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
