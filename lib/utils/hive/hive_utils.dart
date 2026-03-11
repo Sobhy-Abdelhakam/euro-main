@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:euro/models/user_model.dart';
 import 'package:euro/utils/hive/hive_boxes.dart';
 import 'package:euro/utils/hive/hive_keys.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,32 +9,14 @@ abstract class HiveUtils {
     await Hive.openBox(HiveBoxes.user);
   }
 
-  static void saveUser(UserModel user) {
-    Hive.box(HiveBoxes.user).put(HiveKeys.user, jsonEncode(user.toMap));
-  }
-
   static void confirmFirstTime() {
     Hive.box(HiveBoxes.appConfig).put(HiveKeys.isFirstTime, false);
   }
 
 
-  static UserModel? get getUser {
-    String? json =
-        Hive.box(HiveBoxes.user).get(HiveKeys.user, defaultValue: null);
-    if (json != null) {
-      return UserModel.fromJson(jsonDecode(json));
-    } else {
-      return null;
-    }
-  }
-
-  static void deleteUser() {
+   static void deleteUser() {
     Hive.box(HiveBoxes.user).delete(HiveKeys.user);
   }
-
-  // static void setLanguage(String languageCode) async {
-  //    Hive.box(HiveBoxes.appConfig).put(HiveKeys.language, languageCode);
-  // }
   static Future<void> setLanguage(String languageCode) async {
   await Hive.box(HiveBoxes.appConfig)
       .put(HiveKeys.language, languageCode);
