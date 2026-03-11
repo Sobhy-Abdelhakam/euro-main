@@ -1,11 +1,15 @@
+import 'package:euro/l10n/app_localizations.dart';
+import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
-  static Future<Position> getLocation() async {
+  static Future<Position> getLocation(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
-      throw Exception('Location services are disabled. Please enable GPS.');
+      throw Exception(l10n.locationServiceDisabled);
     }
 
     LocationPermission permission = await Geolocator.checkPermission();
@@ -17,7 +21,7 @@ class LocationService {
     if (permission == LocationPermission.deniedForever ||
         permission == LocationPermission.denied) {
       throw Exception(
-        'Location permission denied. Please enable it from system settings.',
+        l10n.locationPermissionDenied,
       );
     }
 

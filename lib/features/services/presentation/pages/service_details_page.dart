@@ -1,4 +1,5 @@
 import 'package:euro/features/services/domain/entities/service.dart';
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class ServiceDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final l10n = AppLocalizations.of(context)!;
     final hasChildren = service.subServices.isNotEmpty;
 
     return Scaffold(
@@ -64,9 +65,9 @@ class ServiceDetailsPage extends StatelessWidget {
           const SizedBox(height: 30),
 
           if (hasChildren)
-            const Text(
-              "Included Services",
-              style: TextStyle(
+            Text(
+              l10n.serviceDetailsIncludedServices,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

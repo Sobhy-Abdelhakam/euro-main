@@ -21,7 +21,7 @@ class _SOSPageState extends State<SOSPage> {
   List<File> attachedImages = [];
 
   Future sendSOS() async {
-    final position = await LocationService.getLocation();
+    final position = await LocationService.getLocation(context);
 
     await SosApiService().sendSOS(
       name: nameController.text,

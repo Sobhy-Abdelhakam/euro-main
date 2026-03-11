@@ -5,6 +5,7 @@ import 'package:euro/features/sos/data/location_service.dart';
 import 'package:euro/features/sos/data/sos_api_service.dart';
 import 'package:euro/features/sos/presentation/image_picker_widget.dart';
 import 'package:euro/features/sos/presentation/location_picker_page.dart';
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -34,12 +35,18 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
   @override
   void initState() {
     super.initState();
-    loadLocation();
+    // Delay location loading until after first frame so inherited widgets
+    // (like Localizations) are fully available.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        loadLocation();
+      }
+    });
   }
 
   Future<void> loadLocation() async {
     try {
-      final pos = await LocationService.getLocation();
+      final pos = await LocationService.getLocation(context);
 
       final addr = await GeocodingService.getAddress(
         latitude: pos.latitude,
@@ -62,8 +69,8 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
     if (!_formKey.currentState!.validate()) return;
     if (position == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Unable to get your location. Please try again.'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.sosSheetLocationSnackbar),
         ),
       );
       return;
@@ -88,14 +95,14 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('SOS Request Sent Successfully'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.sosSheetSuccess),
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to send request: $e'),
+          content: Text(AppLocalizations.of(context)!.sosSheetFailure(e)),
         ),
       );
     } finally {
@@ -109,6 +116,7 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
@@ -123,61 +131,96 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.sos_rounded, color: Colors.red),
-                    SizedBox(width: 8),
+                  children: [
+                    const Icon(Icons.sos_rounded, color: Colors.red),
+                    const SizedBox(width: 8),
                     Text(
-                      'Request Assistance',
-                      style: TextStyle(
+                      l10n.sosSheetTitle,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
+                const SizedBox(height: 16),
+                Text(
+                  l10n.sosTitle,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.sosDescription,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.black.withOpacity(0.7),
+                      ),
+                ),
                 const SizedBox(height: 20),
+                Text(
+                  l10n.sosSheetNameLabel,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 6),
                 TextFormField(
                   controller: nameController,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
+                  decoration: InputDecoration(
+                    hintText: l10n.sosSheetNameLabel,
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your name';
+                      return l10n.sosSheetNameRequired;
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 12),
+                Text(
+                  l10n.sosSheetMobileLabel,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 6),
                 TextFormField(
                   controller: mobileController,
                   keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    labelText: 'Mobile',
+                  decoration: InputDecoration(
+                    hintText: l10n.sosSheetMobileLabel,
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please enter a mobile number';
+                      return l10n.sosSheetMobileRequired;
                     }
                     if (value.trim().length < 7) {
-                      return 'Please enter a valid mobile number';
+                      return l10n.sosSheetMobileInvalid;
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
+                Text(
+                  l10n.sosSheetServiceTypeLabel,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
                   value: serviceType,
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: 'Roadside',
-                      child: Text('Roadside Assistance'),
+                      child: Text(l10n.sosSheetServiceTypeRoadside),
                     ),
                     DropdownMenuItem(
                       value: 'Medical',
-                      child: Text('Medical Assistance'),
+                      child: Text(l10n.sosSheetServiceTypeMedical),
                     ),
                   ],
                   onChanged: (value) {
@@ -186,15 +229,24 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
                       serviceType = value;
                     });
                   },
-                  decoration: const InputDecoration(
-                    labelText: 'Service Type',
-                  ),
+                  decoration: const InputDecoration(),
                 ),
                 const SizedBox(height: 20),
-                ImagePickerWidget(
-                  onChanged: (files) {
-                    attachedImages = files;
-                  },
+                Card(
+                  elevation: 0,
+                  margin: EdgeInsets.zero,
+                  color: Colors.grey.shade50,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: ImagePickerWidget(
+                      onChanged: (files) {
+                        attachedImages = files;
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 _locationPreview(),
@@ -202,6 +254,7 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.red,
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   onPressed: loading ? null : sendSOS,
@@ -217,7 +270,7 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
                             strokeWidth: 2,
                           ),
                         )
-                      : const Text('SEND SOS'),
+                      : Text(l10n.sosSheetSendButton),
                 ),
               ],
             ),
@@ -238,12 +291,13 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
     }
 
     if (locationError != null && position == null) {
+      final l10n = AppLocalizations.of(context)!;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Location',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Text(
+            l10n.sosSheetLocationTitle,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
@@ -254,7 +308,7 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
           OutlinedButton.icon(
             onPressed: loadLocation,
             icon: const Icon(Icons.refresh),
-            label: const Text('Retry location'),
+            label: Text(l10n.sosSheetLocationRetry),
           ),
         ],
       );
@@ -265,12 +319,13 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
       position!.longitude,
     );
 
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Your Location',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        Text(
+          l10n.sosSheetYourLocation,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         Container(
@@ -301,7 +356,7 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                address ?? 'Loading address...',
+                address ?? l10n.sosSheetLoadingAddress,
                 style: const TextStyle(fontSize: 14),
               ),
             ),
@@ -310,7 +365,7 @@ class _SOSBottomSheetState extends State<SOSBottomSheet> {
         TextButton.icon(
           onPressed: selectLocation,
           icon: const Icon(Icons.map),
-          label: const Text('Choose another location'),
+          label: Text(l10n.sosSheetChooseAnotherLocation),
         )
       ],
     );

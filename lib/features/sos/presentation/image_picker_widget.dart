@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -33,12 +34,13 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Attach Images (optional)',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        Text(
+          l10n.imagePickerTitle,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         if (images.isNotEmpty)
@@ -61,7 +63,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         ElevatedButton.icon(
           onPressed: pickImage,
           icon: const Icon(Icons.photo),
-          label: const Text('Add Images'),
+          label: Text(l10n.imagePickerButton),
         )
       ],
     );

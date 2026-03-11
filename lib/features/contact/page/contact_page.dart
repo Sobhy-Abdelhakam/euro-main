@@ -1,5 +1,6 @@
 import 'package:euro/constants/constants.dart' as AppConstants;
 import 'package:euro/features/contact/widget/contact_card.dart';
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,24 +9,25 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contact Us'),
+        title: Text(l10n.contactTitle),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
           Text(
-            'Get in touch',
+            l10n.contactGetInTouch,
             style: textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Reach Euro Assist anytime for medical or roadside emergencies.',
+            l10n.contactDescription,
             style: textTheme.bodyMedium?.copyWith(
               color: Colors.black.withOpacity(0.7),
             ),
@@ -33,37 +35,37 @@ class ContactPage extends StatelessWidget {
           const SizedBox(height: 24),
           ContactCard(
             icon: Icons.chat,
-            title: 'WhatsApp (Medical)',
+            title: l10n.contactWhatsAppMedical,
             subtitle: AppConstants.medicalWhatsApp,
             onTap: () => _openWhatsApp(context, AppConstants.medicalWhatsApp),
           ),
           ContactCard(
             icon: Icons.chat,
-            title: 'WhatsApp (Roadside)',
+            title: l10n.contactWhatsAppRoadside,
             subtitle: AppConstants.roadsideWhatsApp,
             onTap: () => _openWhatsApp(context, AppConstants.roadsideWhatsApp),
           ),
           ContactCard(
             icon: Icons.email,
-            title: 'Email (Medical)',
+            title: l10n.contactEmailMedical,
             subtitle: AppConstants.medicalEmail,
             onTap: () => _openEmail(context, AppConstants.medicalEmail),
           ),
           ContactCard(
             icon: Icons.email,
-            title: 'Email (Roadside)',
+            title: l10n.contactEmailRoadside,
             subtitle: AppConstants.roadsideEmail,
             onTap: () => _openEmail(context, AppConstants.roadsideEmail),
           ),
           ContactCard(
             icon: Icons.phone,
-            title: 'Landline',
+            title: l10n.contactLandline,
             subtitle: AppConstants.landLine,
             onTap: () => _callPhone(context, AppConstants.landLine),
           ),
           ContactCard(
             icon: Icons.public,
-            title: 'Website',
+            title: l10n.contactWebsite,
             subtitle: AppConstants.website,
             onTap: () => _openWebsite(context, AppConstants.website),
           ),
@@ -85,8 +87,10 @@ class ContactPage extends StatelessWidget {
       return;
     }
 
-    _showError(context,
-        'Could not open WhatsApp. Please install WhatsApp or open from browser.');
+    _showError(
+      context,
+      AppLocalizations.of(context)!.contactErrorWhatsApp,
+    );
   }
 
   Future<void> _openEmail(BuildContext context, String email) async {
@@ -94,7 +98,7 @@ class ContactPage extends StatelessWidget {
     if (await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       return;
     }
-    _showError(context, 'No email client installed.');
+    _showError(context, AppLocalizations.of(context)!.contactErrorEmail);
   }
 
   Future<void> _callPhone(BuildContext context, String phone) async {
@@ -102,7 +106,7 @@ class ContactPage extends StatelessWidget {
     if (await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       return;
     }
-    _showError(context, 'Phone call is unavailable.');
+    _showError(context, AppLocalizations.of(context)!.contactErrorPhone);
   }
 
   Future<void> _openWebsite(BuildContext context, String url) async {
@@ -113,7 +117,7 @@ class ContactPage extends StatelessWidget {
     if (await launchUrl(uri, mode: LaunchMode.platformDefault)) {
       return;
     }
-    _showError(context, 'Could not open website.');
+    _showError(context, AppLocalizations.of(context)!.contactErrorWebsite);
   }
 
   void _showError(BuildContext context, String message) {

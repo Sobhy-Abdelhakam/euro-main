@@ -1,5 +1,6 @@
 import 'package:euro/features/services/presentation/pages/services_category_page.dart';
 import 'package:euro/features/sos/presentation/sos_bottom_sheet.dart';
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,16 +9,17 @@ class ServicesHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Services'),
+        title: Text(l10n.servicesHomeTitle),
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: AppColors.red,
         icon: const Icon(Icons.emergency_rounded),
-        label: const Text('SOS'),
+        label: Text(l10n.servicesHomeSosLabel),
         onPressed: () {
           showModalBottomSheet(
             context: context,
@@ -30,28 +32,28 @@ class ServicesHomePage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         children: [
           Text(
-            'Choose the type of assistance',
+            l10n.servicesHomeHeader,
             style: textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Browse the full list of Euro Assist services for roadside and medical support.',
+            l10n.servicesHomeDescription,
             style: textTheme.bodyMedium?.copyWith(
               color: Colors.black.withOpacity(0.6),
             ),
           ),
           const SizedBox(height: 24),
           _CategoryCard(
-            title: 'Roadside Assistance',
+            title: l10n.servicesHomeRoadsideTitle,
             icon: Icons.car_repair_rounded,
             type: 'roadside',
             color: Colors.blue.shade50,
           ),
           const SizedBox(height: 16),
           _CategoryCard(
-            title: 'Medical Assistance',
+            title: l10n.servicesHomeMedicalTitle,
             icon: Icons.local_hospital_rounded,
             type: 'medical',
             color: Colors.green.shade50,
@@ -77,6 +79,7 @@ class _CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     return InkWell(
@@ -120,7 +123,7 @@ class _CategoryCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Coverage, benefits, and detailed service list.',
+                      l10n.servicesHomeCardSubtitle,
                       style: textTheme.bodySmall?.copyWith(
                         color: Colors.black.withOpacity(0.65),
                       ),

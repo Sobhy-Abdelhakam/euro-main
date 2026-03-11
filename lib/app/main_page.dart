@@ -1,5 +1,7 @@
 import 'package:euro/app/routes.dart';
 import 'package:euro/features/sos/presentation/sos_bottom_sheet.dart';
+import 'package:euro/l10n/app_localizations.dart';
+import 'package:euro/main.dart';
 import 'package:euro/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -8,12 +10,31 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Euro Assist'),
+        title: Text(l10n.homeTitle),
+        actions: [
+          PopupMenuButton<Locale>(
+            icon: const Icon(Icons.language),
+            onSelected: (locale) {
+              MyApp.setLocale(context, locale);
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: const Locale('en'),
+                child: Text(l10n.languageEnglish),
+              ),
+              PopupMenuItem(
+                value: const Locale('ar'),
+                child: Text(l10n.languageArabic),
+              ),
+            ],
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -22,7 +43,7 @@ class MainPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Need help right now?',
+                l10n.homeNeedHelp,
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onBackground.withOpacity(0.9),
@@ -30,7 +51,7 @@ class MainPage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Tap SOS for immediate roadside or medical assistance.',
+                l10n.homeNeedHelpDescription,
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onBackground.withOpacity(0.7),
                 ),
@@ -42,7 +63,7 @@ class MainPage extends StatelessWidget {
 
               const SizedBox(height: 28),
               Text(
-                'Services & Information',
+                l10n.homeServicesInfoTitle,
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -59,8 +80,8 @@ class MainPage extends StatelessWidget {
                   children: [
                     _MenuCard(
                       icon: Icons.miscellaneous_services_rounded,
-                      title: 'Services',
-                      subtitle: 'Roadside & medical coverage',
+                      title: l10n.homeMenuServicesTitle,
+                      subtitle: l10n.homeMenuServicesSubtitle,
                       color: colorScheme.primaryContainer,
                       iconColor: colorScheme.primary,
                       onTap: () {
@@ -69,8 +90,8 @@ class MainPage extends StatelessWidget {
                     ),
                     _MenuCard(
                       icon: Icons.contact_phone_rounded,
-                      title: 'Contact',
-                      subtitle: 'Call, WhatsApp, or email us',
+                      title: l10n.homeMenuContactTitle,
+                      subtitle: l10n.homeMenuContactSubtitle,
                       color: colorScheme.secondaryContainer,
                       iconColor: colorScheme.secondary,
                       onTap: () {
@@ -79,8 +100,8 @@ class MainPage extends StatelessWidget {
                     ),
                     _MenuCard(
                       icon: Icons.info_rounded,
-                      title: 'About',
-                      subtitle: 'Learn about Euro Assist',
+                      title: l10n.homeMenuAboutTitle,
+                      subtitle: l10n.homeMenuAboutSubtitle,
                       color: colorScheme.tertiaryContainer,
                       iconColor: colorScheme.tertiary,
                       onTap: () {
@@ -107,6 +128,7 @@ class _SosPrimaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -149,19 +171,19 @@ class _SosPrimaryCard extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Emergency SOS',
-                      style: TextStyle(
+                      l10n.sosTitle,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
-                      'Share your location and details with our team in seconds.',
-                      style: TextStyle(
+                      l10n.sosDescription,
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 13,
                         height: 1.3,
@@ -191,7 +213,7 @@ class _SosPrimaryCard extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.sos_rounded),
-            label: const Text('Send SOS now'),
+            label: Text(l10n.sosButton),
           ),
         ],
       ),

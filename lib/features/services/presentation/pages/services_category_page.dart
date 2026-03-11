@@ -1,6 +1,7 @@
 import 'package:euro/features/services/data/datasource/service_local_data_source.dart';
 import 'package:euro/features/services/domain/entities/service.dart';
 import 'package:euro/features/services/presentation/widgets/service_grid_card.dart';
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ServicesCategoryPage extends StatefulWidget {
@@ -19,15 +20,22 @@ class _ServicesCategoryPageState extends State<ServicesCategoryPage> {
   @override
   void initState() {
     super.initState();
-    _servicesFuture = widget.type == 'medical'
-        ? datasource.getMedicalServices('en')
-        : datasource.getRoadsideServices('en');
+    // actual language is selected in build using context locale
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final langCode = Localizations.localeOf(context).languageCode == 'ar'
+        ? 'ar'
+        : 'en';
+
+    _servicesFuture = widget.type == 'medical'
+        ? datasource.getMedicalServices(langCode)
+        : datasource.getRoadsideServices(langCode);
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Services')),
+      appBar: AppBar(title: Text(l10n.servicesAppBarTitle)),
       body: FutureBuilder(
         future: _servicesFuture,
         builder: (context, snapshot) {
@@ -39,12 +47,12 @@ class _ServicesCategoryPageState extends State<ServicesCategoryPage> {
           /// Error
           if (snapshot.hasError) {
             return _ErrorState(
-              message: 'Unable to load services. Please try again.',
+              message: l10n.servicesError,
               onRetry: () {
                 setState(() {
                   _servicesFuture = widget.type == 'medical'
-                      ? datasource.getMedicalServices('en')
-                      : datasource.getRoadsideServices('en');
+                      ? datasource.getMedicalServices(langCode)
+                      : datasource.getRoadsideServices(langCode);
                 });
               },
             );
@@ -61,12 +69,12 @@ class _ServicesCategoryPageState extends State<ServicesCategoryPage> {
             children: [
               _header(response.title, response.about),
               _section(
-                title: 'Individual Services',
+                title: l10n.servicesIndividualTitle,
                 services: response.servicesIndividuals,
               ),
               if (response.servicesCorporates.isNotEmpty)
                 _section(
-                  title: 'Corporate Services',
+                  title: l10n.servicesCorporateTitle,
                   services: response.servicesCorporates,
                 ),
             ],
@@ -148,11 +156,12 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Text(
-          'No services available at the moment. Please check back later.',
+          l10n.servicesEmpty,
           textAlign: TextAlign.center,
         ),
       ),
@@ -171,6 +180,7 @@ class _ErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -187,7 +197,7 @@ class _ErrorState extends StatelessWidget {
             OutlinedButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
+              label: Text(l10n.commonRetryButton),
             ),
           ],
         ),

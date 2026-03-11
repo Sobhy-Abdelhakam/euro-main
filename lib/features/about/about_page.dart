@@ -1,3 +1,4 @@
+import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/utils/app_colors.dart';
 import 'package:euro/utils/paths/text_path.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +14,29 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   String? aboutText;
   String? error;
+  bool _hasLoadedOnce = false;
 
   @override
   void initState() {
     super.initState();
-    loadAbout();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Ensure we load once when context/localizations are available
+    if (!_hasLoadedOnce) {
+      _hasLoadedOnce = true;
+      loadAbout();
+    }
   }
 
   Future<void> loadAbout() async {
     try {
+      final localeCode = Localizations.localeOf(context).languageCode;
+      final fileSuffix = localeCode == 'ar' ? 'ar' : 'en';
       final text = await rootBundle.loadString(
-        TextPath.getFile(fileName: 'about_us_en'),
+        TextPath.getFile(fileName: 'about_us_$fileSuffix'),
       );
 
       setState(() {
@@ -32,13 +45,15 @@ class _AboutPageState extends State<AboutPage> {
       });
     } catch (e) {
       setState(() {
-        error = 'Failed to load content. Please try again later.';
+        // Store raw error; show localized message in build() instead
+        error = e.toString();
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
 
     Widget body;
@@ -54,14 +69,14 @@ class _AboutPageState extends State<AboutPage> {
               const Icon(Icons.error_outline, color: Colors.red, size: 40),
               const SizedBox(height: 12),
               Text(
-                error!,
+                l10n.aboutErrorLoad,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               OutlinedButton.icon(
                 onPressed: loadAbout,
                 icon: const Icon(Icons.refresh),
-                label: const Text('Retry'),
+                label: Text(l10n.commonRetry),
               ),
             ],
           ),
@@ -88,23 +103,25 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Euro Assist',
-                      style: textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.aboutHeaderTitle,
+                        style: textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Your partner for roadside and medical assistance.',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.black.withOpacity(0.7),
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.aboutHeaderSubtitle,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: Colors.black.withOpacity(0.7),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -123,7 +140,7 @@ class _AboutPageState extends State<AboutPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us'),
+        title: Text(l10n.aboutTitle),
       ),
       body: body,
     );
