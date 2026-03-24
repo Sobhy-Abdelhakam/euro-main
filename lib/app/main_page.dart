@@ -36,79 +36,128 @@ class MainPage extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                l10n.homeNeedHelp,
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onBackground.withOpacity(0.9),
+              Container(
+                width: double.infinity,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: colorScheme.outlineVariant.withOpacity(0.35),
+                  ),
+                ),
+                child: Image.asset(
+                  'assets/images/png/logo.png',
+                  height: 64,
+                  fit: BoxFit.contain,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                l10n.homeNeedHelpDescription,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onBackground.withOpacity(0.7),
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: colorScheme.outlineVariant.withOpacity(0.4),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 22,
+                      backgroundColor: colorScheme.primaryContainer,
+                      child: Icon(
+                        Icons.support_agent_rounded,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.homeNeedHelp,
+                            style: textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: colorScheme.onSurface,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            l10n.homeNeedHelpDescription,
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: colorScheme.onSurface.withOpacity(0.72),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
-
-              /// SOS primary action
               _SosPrimaryCard(colorScheme: colorScheme),
-
               const SizedBox(height: 28),
               Text(
                 l10n.homeServicesInfoTitle,
                 style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 12),
-
-              /// GRID MENU
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 1,
-                  children: [
-                    _MenuCard(
-                      icon: Icons.miscellaneous_services_rounded,
-                      title: l10n.homeMenuServicesTitle,
-                      subtitle: l10n.homeMenuServicesSubtitle,
-                      color: colorScheme.primaryContainer,
-                      iconColor: colorScheme.primary,
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.services);
-                      },
-                    ),
-                    _MenuCard(
-                      icon: Icons.contact_phone_rounded,
-                      title: l10n.homeMenuContactTitle,
-                      subtitle: l10n.homeMenuContactSubtitle,
-                      color: colorScheme.secondaryContainer,
-                      iconColor: colorScheme.secondary,
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.contact);
-                      },
-                    ),
-                    _MenuCard(
-                      icon: Icons.info_rounded,
-                      title: l10n.homeMenuAboutTitle,
-                      subtitle: l10n.homeMenuAboutSubtitle,
-                      color: colorScheme.tertiaryContainer,
-                      iconColor: colorScheme.tertiary,
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.about);
-                      },
-                    ),
-                  ],
-                ),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWideLayout = constraints.maxWidth >= 560;
+                  return GridView.count(
+                    crossAxisCount: isWideLayout ? 3 : 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: isWideLayout ? 1.15 : 1.0,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _MenuCard(
+                        icon: Icons.miscellaneous_services_rounded,
+                        title: l10n.homeMenuServicesTitle,
+                        subtitle: l10n.homeMenuServicesSubtitle,
+                        color: colorScheme.primaryContainer,
+                        iconColor: colorScheme.primary,
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRoutes.services);
+                        },
+                      ),
+                      _MenuCard(
+                        icon: Icons.contact_phone_rounded,
+                        title: l10n.homeMenuContactTitle,
+                        subtitle: l10n.homeMenuContactSubtitle,
+                        color: colorScheme.secondaryContainer,
+                        iconColor: colorScheme.secondary,
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRoutes.contact);
+                        },
+                      ),
+                      _MenuCard(
+                        icon: Icons.info_rounded,
+                        title: l10n.homeMenuAboutTitle,
+                        subtitle: l10n.homeMenuAboutSubtitle,
+                        color: colorScheme.tertiaryContainer,
+                        iconColor: colorScheme.tertiary,
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRoutes.about);
+                        },
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
@@ -239,50 +288,69 @@ class _MenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(20),
-      onTap: onTap,
-      child: Card(
-        color: color,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7),
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(10),
-                child: Icon(
-                  icon,
-                  color: iconColor,
-                  size: 26,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.black.withOpacity(0.6),
-                    ),
-                  ),
-                ],
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [color, color.withOpacity(0.84)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: colorScheme.shadow.withOpacity(0.08),
+                blurRadius: 14,
+                offset: const Offset(0, 8),
               ),
             ],
+            border: Border.all(color: Colors.white.withOpacity(0.7)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.8),
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Icon(
+                    icon,
+                    color: iconColor,
+                    size: 26,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurface.withOpacity(0.65),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
