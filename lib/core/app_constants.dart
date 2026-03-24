@@ -7,6 +7,7 @@ abstract class AppTheme {
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.red,
+        primary: AppColors.red,
         brightness: Brightness.light,
       ),
     );

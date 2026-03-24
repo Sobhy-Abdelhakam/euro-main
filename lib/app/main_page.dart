@@ -2,7 +2,6 @@ import 'package:euro/app/routes.dart';
 import 'package:euro/features/sos/presentation/sos_bottom_sheet.dart';
 import 'package:euro/l10n/app_localizations.dart';
 import 'package:euro/main.dart';
-import 'package:euro/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -135,15 +134,15 @@ class _SosPrimaryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
           colors: [
-            AppColors.red,
-            AppColors.red.withOpacity(0.85),
+            colorScheme.primary,
+            colorScheme.primary.withOpacity(0.9),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.red.withOpacity(0.28),
+            color: colorScheme.primary.withOpacity(0.28),
             blurRadius: 18,
             offset: const Offset(0, 10),
           ),
@@ -198,7 +197,7 @@ class _SosPrimaryCard extends StatelessWidget {
           FilledButton.icon(
             style: FilledButton.styleFrom(
               backgroundColor: Colors.white,
-              foregroundColor: AppColors.red,
+              foregroundColor: colorScheme.primary,
               minimumSize: const Size.fromHeight(52),
               textStyle: const TextStyle(
                 fontSize: 17,
